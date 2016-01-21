@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div id="bg">
-        <img src="img/background1.jpg">
+        <img src="img/background1.jpg" width="100%">
     </div>
 
 	<div id="examples">
@@ -30,7 +30,6 @@
 			});
 			var tl = new TimelineMax({repeat:-1, repeatDelay:1});
 			tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4, scale:0.9}, 0.1, "+=0.2");
-
 		}	
 
 		var example_2 = function() {
@@ -42,7 +41,6 @@
 			  .staggerTo(slicedObj.tiles, 0.5, {
 			  	rotationX:90, opacity:0.4, transformOrigin:"center top", ease:Back.easeOut.config(5)
 			  }, 0.2, "+=2");
-
 		}	
 
 		var example_3 = function() {
@@ -51,13 +49,11 @@
 			});
 			var tl = new TimelineMax({repeat:-1, repeatDelay:1});
 			tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4, yPercent:-30}, 0.1, "+=0.2")
-			  .staggerTo(slicedObj.tiles, 0.5, {opacity: 0.4, yPercent:-30}, 0.1, "+=0.2")
-			  
+			  .staggerTo(slicedObj.tiles, 0.5, {opacity: 0.4, yPercent:-30}, 0.1, "+=0.2");			  
 		}
 
 		example_1();
 		example_2();
 		example_3();
-		/**/
 	});
 </script>
