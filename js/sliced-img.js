@@ -6,6 +6,12 @@ var SlicedImg = function(data) {
 		row_size = Math.ceil(img.height / rows);
 		tiles = []
 
+	/**
+		La opcion `data.useSizeImg` activa esta opcion:
+		Esto es una porqueria para el rendimiento, pero sirve para
+		que la imagen se redimencione, es mejor redimencionar las imagenes
+		directamente antes de usar esta mierda
+	*/
 	var getNewImg = function() {
 		var canvasImg = document.createElement('canvas');
 		var drawingSurfaceImg = canvasImg.getContext("2d");
@@ -30,7 +36,8 @@ var SlicedImg = function(data) {
 			canvas.width = col_size;
 			canvas.height = row_size;
 			drawingSurface.drawImage(
-				getNewImg(), x, y, 
+				data.useSizeImg?getNewImg():img,
+				x, y, 
 				col_size, row_size, 
 				0, 0, 
 				col_size, row_size
@@ -42,13 +49,17 @@ var SlicedImg = function(data) {
 			});
 		}
 	}
-	var wall = document.createElement('div');		
+	var wall = document.createElement('div');
+
 	imgParent.replaceChild(wall, img);
 	wall.style.width = img.width + 'px';
 	wall.style.height = img.height + 'px';
 	wall.id = "wall" + Math.floor((Math.random() * 99999999))
 	wall.style.position = "relative"
-
+	if(data.className) {
+		wall.className = data.className;	
+	}
+	
 	tiles.forEach(function(elem) {			
 		elem.canvas.setAttribute("random", elem.random);
 		elem.canvas.style.position = 'absolute';
