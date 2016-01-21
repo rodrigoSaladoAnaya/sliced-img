@@ -17,14 +17,12 @@ var SlicedImg = function(data) {
 				img, x, y, 
 				col_size, row_size, 
 				0, 0, col_size, row_size
-			);
-			var tlObj = {
-				col: c, row: r,
+			);			
+			tiles.push({
 				x: x, y: y,
 				random: Math.floor((Math.random() * (cols * rows)) + 1),
 				canvas: canvas
-			}
-			tiles.push(tlObj);				
+			});
 		}
 	}
 	var wall = document.createElement('div');		
