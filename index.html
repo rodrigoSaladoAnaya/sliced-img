@@ -3,26 +3,20 @@
 <head>
 	<meta charset="utf-8">
 	<title>Sliced Img</title>
-	<style type="text/css">
-		#examples {
-			position: relative;
-			width: 40%;
-			display: inline-block;
-		}
-		#examples img {
-			display: none;
-		}
-		.sliced-content {
-			padding-bottom: 40px;
-		}
-	</style>	
+	<link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+	<div id="bg">
+        <img src="img/background1.jpg">
+    </div>
+
 	<div id="examples">
 		<img id="anime1" src="img/anime1.jpg">		
 		<img id="anime2" src="img/anime2.jpg">		
 		<img id="anime3" src="img/anime3.jpg">
 	</div>
+
+	
 </body>
 <html>
 <script src="js/TweenMax.js"></script>
@@ -53,7 +47,7 @@
 
 		var example_3 = function() {
 			var slicedObj = new SlicedImg({
-				img: "#anime3", columns: 5, rows: 5, className: 'sliced-content'
+				img: "#anime3", columns: 5, rows: 5, className: 'sliced-content sliced-content-3'
 			});
 			var tl = new TimelineMax({repeat:-1, repeatDelay:1});
 			tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4, yPercent:-30}, 0.1, "+=0.2")
@@ -63,6 +57,7 @@
 
 		example_1();
 		example_2();
-		example_3();	
+		example_3();
+		/**/
 	});
 </script>
