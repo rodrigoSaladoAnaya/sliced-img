@@ -5,6 +5,22 @@ var SlicedImg = function(data) {
 		col_size = Math.ceil(img.width / cols),
 		row_size = Math.ceil(img.height / rows);
 		tiles = []
+
+	var getNewImg = function() {
+		var canvasImg = document.createElement('canvas');
+		var drawingSurfaceImg = canvasImg.getContext("2d");
+		canvasImg.width = img.width;
+		canvasImg.height = img.height;
+		drawingSurfaceImg.drawImage(
+			img, 0, 0,
+			img.width, img.height
+		);
+ 	 	console.log()
+ 	 	var n_img = document.createElement('img')
+ 	 	n_img.setAttribute('crossOrigin', 'anonymous');
+ 	 	n_img.src = canvasImg.toDataURL(1);
+ 	 	return n_img;
+	}
 	for(var r = 0; r < rows; r++) {
 		for(var c = 0; c < cols; c++) {
 			var x = c * col_size,
@@ -14,7 +30,7 @@ var SlicedImg = function(data) {
 			canvas.width = col_size;
 			canvas.height = row_size;
 			drawingSurface.drawImage(
-				data.canvasImg, x, y, 
+				getNewImg(), x, y, 
 				col_size, row_size, 
 				0, 0, 
 				col_size, row_size
