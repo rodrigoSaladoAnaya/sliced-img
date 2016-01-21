@@ -57,7 +57,7 @@ var SlicedImg = function(options) {
 					0, 0, 
 					col_size, row_size
 				);				
-				var tailToUse = function() {
+				var tileToUse = function() {
 					var ttu = canvas;
 					if(!options.useCanvas) {
 						var timg = document.createElement('img');
@@ -71,7 +71,7 @@ var SlicedImg = function(options) {
 					x: x, y: y,
 					column: c, row: r,
 					random: Math.floor((Math.random() * (cols * rows)) + 1),
-					tile: tailToUse
+					tile: tileToUse
 				});
 			}
 		}
