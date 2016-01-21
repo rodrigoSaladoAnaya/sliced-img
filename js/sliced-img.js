@@ -40,8 +40,18 @@ var SlicedImg = function(data) {
 		wall.appendChild(elem.canvas)
 	});
 
+	var tilesOut = function() {
+		if(data.random) {
+			return Array.from(wall.childNodes).sort(function(a, b) {
+				return a.getAttribute('random')-b.getAttribute('random');
+			})
+		} 
+		return wall.childNodes;
+	}
+
 	return {
 		id: wall.id,
-		tiles: document.querySelectorAll("#"+wall.id+" canvas")			
+		tiles: tilesOut()
+
 	}	
 }
