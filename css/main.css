@@ -3,7 +3,7 @@
 	width: 700px;			
 	margin:20px auto 0 auto;
 }
-#examples img {
+#examples .pic{
 	display: none;
 }
 .sliced-content {

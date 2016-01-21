@@ -10,10 +10,11 @@
         <img src="img/background1.jpg" width="100%">
     </div>
 
-	<div id="examples">
-		<img id="anime1" src="img/anime1.jpg">		
-		<img id="anime2" src="img/anime2.jpg">		
-		<img id="anime3" src="img/anime3.jpg">
+	<div id="examples">		
+		<img id="anime1" class="pic" src="img/anime1.jpg">
+		<img id="anime1-1" class="pic" src="img/anime1.jpg">
+		<img id="anime2" class="pic" src="img/anime2.jpg">		
+		<img id="anime3" class="pic" src="img/anime3.jpg">
 	</div>
 
 	
@@ -24,19 +25,30 @@
 <script src="js/ready-doc.js"></script>
 <script>
 	documentReady(function() {
-		var example_1 = function() {
+		var example_1_with_canvas = function() {
 			var slicedObj = new SlicedImg({
-				img: "#anime1", random: true, columns: 6, rows: 5, className: 'sliced-content'
+				img: "#anime1", random: true, columns: 10, rows: 10, 
+				className: 'sliced-content', useCanvas: true
 			});
-			var tl = new TimelineMax({repeat:-1, repeatDelay:1});
+			var tl = new TimelineMax({repeat:1, repeatDelay:1});
+			tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4, scale:0.9}, 0.1, "+=0.2");
+		}	
+
+		var example_1_with_img = function() {
+			var slicedObj = new SlicedImg({
+				img: "#anime1-1", random: true, columns: 10, rows: 10, 
+				className: 'sliced-content'
+			});
+			var tl = new TimelineMax({repeat:1, repeatDelay:1});
 			tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4, scale:0.9}, 0.1, "+=0.2");
 		}	
 
 		var example_2 = function() {
 			var slicedObj = new SlicedImg({
-				img: "#anime2", random: false, columns: 10, rows: 5, className: 'sliced-content'
+				img: "#anime2", random: false, columns: 10, rows: 5, 
+				className: 'sliced-content'
 			});
-			var tl = new TimelineMax({repeat:-1, repeatDelay:1});
+			var tl = new TimelineMax({repeat:1, repeatDelay:1});
 			tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4}, 0.1, "+=0.2")
 			  .staggerTo(slicedObj.tiles, 0.5, {
 			  	rotationX:90, opacity:0.4, transformOrigin:"center top", ease:Back.easeOut.config(5)
@@ -45,14 +57,16 @@
 
 		var example_3 = function() {
 			var slicedObj = new SlicedImg({
-				img: "#anime3", columns: 5, rows: 5, className: 'sliced-content sliced-content-3'
+				img: "#anime3", columns: 5, rows: 5, 
+				className: 'sliced-content sliced-content-3', useCanvas: true
 			});
 			var tl = new TimelineMax({repeat:-1, repeatDelay:1});
 			tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4, yPercent:-30}, 0.1, "+=0.2")
 			  .staggerTo(slicedObj.tiles, 0.5, {opacity: 0.4, yPercent:-30}, 0.1, "+=0.2");			  
 		}
 
-		example_1();
+		example_1_with_canvas();
+		example_1_with_img();
 		example_2();
 		example_3();
 	});

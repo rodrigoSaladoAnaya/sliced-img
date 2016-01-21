@@ -1,4 +1,4 @@
-var SlicedImg = function(data) {
+var SlicedImg = function(options) {
 	var cols, 
 		rows,
 		img,
@@ -10,11 +10,11 @@ var SlicedImg = function(data) {
 		wall;
 
 	var setImg = function() {
-		img  = document.querySelector(data.img);
+		img  = document.querySelector(options.img);
 		if(img === null) 
-			throw "IMG not found with *.querySelector("+data.img+")";
+			throw "IMG not found with *.querySelector("+options.img+")";
 		if(img.nodeName !== 'IMG')
-			throw "The element is not IMG with *.querySelector("+data.img+")";
+			throw "The element is not IMG with *.querySelector("+options.img+")";
 
 		var getNewDataURL = function() {
 			var canvasImg = document.createElement('canvas');
@@ -25,16 +25,16 @@ var SlicedImg = function(data) {
 				img, 0, 0,
 				img.width, img.height
 			);
-	 	 	return canvasImg.toDataURL(1);
+	 	 	return canvasImg.toDataURL();
 		}
-		if(data.useSizeImg) {
+		if(options.useSizeImg) {
 			img.setAttribute('crossOrigin', 'anonymous');
 			img.src = getNewDataURL();
 		}
 	}
 
 	var setValuesToVars = function() {
-		cols = data.columns, rows = data.rows,
+		cols = options.columns, rows = options.rows,
 		imgParent = img.parentNode
 		col_size = Math.ceil(img.width / cols),
 		row_size = Math.ceil(img.height / rows);
@@ -56,12 +56,22 @@ var SlicedImg = function(data) {
 					col_size, row_size, 
 					0, 0, 
 					col_size, row_size
-				);			
+				);				
+				var tailToUse = function() {
+					var ttu = canvas;
+					if(!options.useCanvas) {
+						var timg = document.createElement('img');
+						timg.setAttribute('crossOrigin', 'anonymous');
+						timg.src = canvas.toDataURL();
+						ttu = timg;
+					}
+					return ttu;
+				}();
 				tiles.push({
 					x: x, y: y,
 					column: c, row: r,
 					random: Math.floor((Math.random() * (cols * rows)) + 1),
-					canvas: canvas
+					tile: tailToUse
 				});
 			}
 		}
@@ -74,22 +84,22 @@ var SlicedImg = function(data) {
 		wall.style.height = img.height + 'px';
 		wall.id = "wall" + Math.floor((Math.random() * 99999999))
 		wall.style.position = "relative"
-		if(data.className) {
-			wall.className = data.className;	
+		if(options.className) {
+			wall.className = options.className;	
 		}
 		tiles.forEach(function(elem) {			
-			elem.canvas.setAttribute("data-random", elem.random);
-			elem.canvas.setAttribute("data-column", elem.column);
-			elem.canvas.setAttribute("data-row", elem.row);
-			elem.canvas.style.position = 'absolute';
-			elem.canvas.style.top = elem.y + 'px';
-			elem.canvas.style.left = elem.x + 'px';
-			wall.appendChild(elem.canvas)
+			elem.tile.setAttribute("data-random", elem.random);
+			elem.tile.setAttribute("data-column", elem.column);
+			elem.tile.setAttribute("data-row", elem.row);
+			elem.tile.style.position = 'absolute';
+			elem.tile.style.top = elem.y + 'px';
+			elem.tile.style.left = elem.x + 'px';
+			wall.appendChild(elem.tile)
 		});
 	}
 	
 	var convertTilesAsDOMElems = function() {
-		if(data.random) {
+		if(options.random) {
 			tilesAsElems = Array.from(wall.childNodes).sort(function(a, b) {
 				return a.getAttribute('data-random')-b.getAttribute('data-random');
 			});
