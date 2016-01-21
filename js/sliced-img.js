@@ -117,7 +117,7 @@ var SlicedImg = function(options) {
 	}();
 
 	return {
-		id: wall.id,
+		id: '#'+wall.id,
 		tiles: tilesAsElems
 	}	
 }
