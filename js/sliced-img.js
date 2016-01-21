@@ -14,9 +14,10 @@ var SlicedImg = function(data) {
 			canvas.width = col_size;
 			canvas.height = row_size;
 			drawingSurface.drawImage(
-				img, x, y, 
+				data.canvasImg, x, y, 
 				col_size, row_size, 
-				0, 0, col_size, row_size
+				0, 0, 
+				col_size, row_size
 			);			
 			tiles.push({
 				x: x, y: y,

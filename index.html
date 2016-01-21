@@ -2,26 +2,34 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Sliced Img</title>
-	<link rel="stylesheet" href="css/main.css">
+	<title>Sliced Img</title>	
 </head>
 <body>	
-		<img id="anime1" src="img/anime1.jpg">
-	<!--div id="bg">
-		<img src="img/background1.jpg">
-	</div-->
-	
+	<img id="anime1" src="img/anime1.jpg" width="500px">
 </body>
 <html>
 <script src="js/TweenMax.js"></script>
 <script src="js/sliced-img.js"></script>
 <script src="js/ready-doc.js"></script>
 <script>
-	documentReady(function() {		
+	documentReady(function() {
+		var img = document.querySelector("#anime1");
+		var imgParent = img.parentNode;
+		var canvasImg = document.createElement('canvas');
+		var drawingSurfaceImg = canvasImg.getContext("2d");
+		canvasImg.width = img.width;
+		canvasImg.height = img.height;
+		drawingSurfaceImg.drawImage(
+			img, 0, 0,
+			img.width, img.height
+		);
+ 	 	console.log(canvasImg.toDataURL())
+		//imgParent.appendChild(canvasImg);
+		return
 		var slicedObj = new SlicedImg({
-			img: "#anime1", random: true, columns: 5, rows: 5			
+			img: "#anime1", random: true, columns: 5, rows: 5
 		});
-		var tl = new TimelineMax();
+		var tl = new TimelineMax({repeat:-1, repeatDelay:2});
 		tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4, scale:0.9}, 0.1, "+=0.2");
 	});
 </script>
