@@ -12,7 +12,7 @@
 
 	<div id="examples">		
 		<img id="anime1" class="pic" src="img/anime1.jpg">
-		<img id="anime1-1" class="pic" src="img/anime1-1.jpg" width="640px" height="340px">
+		<img id="anime1-1" class="pic" src="img/anime1-1.jpg" width="640px">
 		<img id="anime2" class="pic" src="img/anime2.jpg">		
 		<img id="anime3" class="pic" src="img/anime3.jpg">
 	</div>
@@ -26,28 +26,37 @@
 <script>
 	documentReady(function() {
 		var example_1_with_canvas = function() {
+			/**JS*/
 			var slicedObj = new SlicedImg({
-				img: "#anime1", random: true, columns: 6, rows: 4, 
-				className: 'sliced-content', useCanvas: true
+				img: "#anime1", //CSS Selector
+				random: true, //Return in random order
+				columns: 6, 
+				rows: 4, 
+				className: 'sliced-content', //Apply this class(es) to the container of the tiles
+				useCanvas: true //Tiles are `canvas`, default use IMG
 			});
+			/**GSAP*/
 			var tl = new TimelineMax({repeat:-1, repeatDelay:1});
 			tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4, scale:0.9}, 0.1, "+=0.2");
 		}	
 
 		var example_1_with_img = function() {
+			/**JS*/
 			var slicedObj = new SlicedImg({
-				img: "#anime1-1", random: true, columns: 8, rows: 6, 
-				className: 'sliced-content'
+				img: "#anime1-1", random: true, columns: 8, rows: 6, className: 'sliced-content', 
 			});
+			/**GSAP*/
 			var tl = new TimelineMax({repeat:-1, repeatDelay:1});
 			tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4, scale:0.4}, 0.1, "+=0.2");
 		}	
 
 		var example_2 = function() {
+			/**JS*/
 			var slicedObj = new SlicedImg({
-				img: "#anime2", random: false, columns: 10, rows: 5, 
-				className: 'sliced-content'
+				img: "#anime2", random: false, columns: 10, rows: 5, className: 'sliced-content',
+				useSizeImg: true //Re-size the using a canvas container, use `width` and `height` attributes
 			});
+			/**GSAP*/
 			var tl = new TimelineMax({repeat:-1, repeatDelay:1});
 			tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4}, 0.1, "+=0.2")
 			  .staggerTo(slicedObj.tiles, 0.5, {
@@ -56,10 +65,11 @@
 		}	
 
 		var example_3 = function() {
+			/**JS*/
 			var slicedObj = new SlicedImg({
-				img: "#anime3", columns: 5, rows: 5, 
-				className: 'sliced-content sliced-content-3', useCanvas: true
+				img: "#anime3", columns: 5, rows: 5, className: 'sliced-content sliced-content-3', useCanvas: true
 			});
+			/**GSAP*/
 			var tl = new TimelineMax({repeat:-1, repeatDelay:1});
 			tl.staggerFrom(slicedObj.tiles, 0.5, {opacity: 0.4, yPercent:-30}, 0.1, "+=0.2")
 			  .staggerTo(slicedObj.tiles, 0.5, {opacity: 0.4, yPercent:-30}, 0.1, "+=0.2");			  
