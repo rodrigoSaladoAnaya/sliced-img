@@ -1,1 +1,1 @@
-git checkout --orphan gh-pages
+git checkout gh-pages
