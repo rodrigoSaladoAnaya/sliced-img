@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sliced image 2</title>	
+</head>
+<body>
+	<img src="img/anime1.jpg">
+</body>
+</html>
+
+<script src="js/TweenMax.js"></script>
+<script src="js/sliced-img-2.js"></script>
+<script src="js/ready-doc.js"></script>
+<script>
+	documentReady(function() {
+		var img = document.querySelector("img"),
+			img_width = img.width,
+			img_height = img.height,
+			img_src = img.src,
+			tiles_colums = 6,
+			tiles_rows = 4
+			img_parent = img.parentNode;
+
+		var wall = document.createElement("wall"),
+			div_tile_width = Math.ceil(img_width / tiles_colums),
+			div_tile_height = Math.ceil(img_height / tiles_rows);
+		wall.id = "wall";
+		wall.setAttribute("style", "position: relative;")
+
+		img_parent.replaceChild(wall, img);
+				
+		for(var c = 0; c < tiles_colums; c++) {
+			for(var r = 0; r < tiles_rows; r++) {
+				var div_tile = document.createElement("div"),
+					c_div = c * div_tile_width,
+					r_div = r * div_tile_height;
+				div_tile.setAttribute(
+					"style",
+					"position: absolute; " +
+					"top: " + r_div + "px; " + 
+					"left: " + c_div + "px; " +
+					"width:" + div_tile_width + "px; " +
+					"height: " + div_tile_height + "px; "+
+					"background: url(" + img.src + ") -" + c_div + "px -" + r_div + "px;"
+				)
+				wall.appendChild(div_tile);
+			}
+		}
+		
+		/**GSAP*/
+		var tl = new TimelineMax({repeat:-1, repeatDelay:1});
+		tl.staggerFrom("#wall div", 0.5, {opacity: 0.4, scale:0.9}, 0.1, "+=0.2")
+		  .staggerTo("#wall div", 0.5, {opacity: 1, scale:0.9}, 0.1, "+=0.2");
+	});
+</script>
